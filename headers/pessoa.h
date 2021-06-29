@@ -4,13 +4,13 @@
 class Pessoa{
     private:      
         int idade;
-        int x;
-        int y;
+        float x;
+        float y;
     public:
         Pessoa();        
-        Pessoa(int idade, int x, int y);        
-        int GetX();
-        int GetY();
+        Pessoa(int idade, float x, float y);        
+        float GetX();
+        float GetY();
         int GetIdade();
 };
 

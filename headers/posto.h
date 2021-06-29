@@ -4,13 +4,13 @@
 class Posto{
     private:      
         int capacidade;
-        int x;
-        int y;
+        float x;
+        float y;
     public:
         Posto(); 
-        Posto(int capacidade, int x, int y);        
-        int GetX();
-        int GetY();
+        Posto(int capacidade, float x, float y);        
+        float GetX();
+        float GetY();
         int GetCapacidade();
 };
 

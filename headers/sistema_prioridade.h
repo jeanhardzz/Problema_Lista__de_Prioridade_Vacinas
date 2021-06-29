@@ -6,6 +6,7 @@
 #include <map>
 #include <iostream>
 #include <sstream>
+#include <cmath>
 
 class Sistema_Prioridade{
     private:
@@ -17,6 +18,7 @@ class Sistema_Prioridade{
         Sistema_Prioridade();
         void Leitura();
         void Imprimir();
+        float CalculaDistancia(Pessoa p1,Posto p2);
 };
 
 #endif

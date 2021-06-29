@@ -50,13 +50,26 @@ void Sistema_Prioridade::Leitura(){
 }
 
 void Sistema_Prioridade::Imprimir(){
-    printf("\tPostos\n");        
+    std::cout<<"\tPostos\n";        
     for(auto &item : this->postos){
         std::cout <<"Posto "<< item.first << " : "<<item.second.GetCapacidade()<<" "<<item.second.GetX()<<" "<<item.second.GetY()<<std::endl;        
     }
 
-    printf("\tPessoas \n");        
+    std::cout<<"\tPessoas \n";        
     for(auto &item : this->pessoas){
         std::cout <<"Pessoa "<< item.first << " : "<<item.second.GetIdade()<<" "<<item.second.GetX()<<" "<<item.second.GetY()<<std::endl;        
     }
+
+    std::cout<<"\tdistancia: "<<CalculaDistancia(pessoas[0],postos[0]);
+}
+
+float Sistema_Prioridade::CalculaDistancia(Pessoa p1,Posto p2){
+    float x; 
+    float y; 
+    x = p1.GetX() - p2.GetX();
+    y = p1.GetY() - p2.GetY();
+    x = pow(x,2.0);
+    y= pow(y,2.0);
+
+    return sqrt(x+y);
 }

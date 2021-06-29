@@ -3,17 +3,17 @@
 Pessoa::Pessoa(){   
 }
 
-Pessoa::Pessoa(int idade, int x, int y){
+Pessoa::Pessoa(int idade, float x, float y){
     this->idade=idade;
     this->x=x;
     this->y=y;
 }
 
-int Pessoa::GetX(){
+float Pessoa::GetX(){
     return this->x;
 }
 
-int Pessoa::GetY(){
+float Pessoa::GetY(){
     return this->y;            
 }
 

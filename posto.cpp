@@ -4,17 +4,17 @@ Posto::Posto(){
 
 }
 
-Posto::Posto(int capacidade, int x, int y){
+Posto::Posto(int capacidade, float x, float y){
     this->capacidade=capacidade;
     this->x=x;
     this->y=y;
 }
 
-int Posto::GetX(){
+float Posto::GetX(){
     return this->x;
 }
 
-int Posto::GetY(){
+float Posto::GetY(){
     return this->y;            
 }
 
