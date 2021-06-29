@@ -13,7 +13,7 @@
 # e eh chamada atraves do comando $(VAR)
 
 CC=g++ # compilador, troque para gcc se preferir utilizar C
-TARGET= pessoa.cpp posto.cpp sistema_prioridade.cpp main.cpp
+TARGET= Lista_encadeada/tipocelula.cpp Lista_encadeada/lista-encadeada.cpp tipoitem.cpp lista_preferencia.cpp pessoa.cpp posto.cpp sistema_prioridade.cpp main.cpp
 CFLAGS=-Wall -Wextra # compiler flags, troque o que quiser, exceto bibliotecas externas
 EXEC=./main # nome do executavel que sera gerado, nao troque
 TMPOUT=main.testresult
