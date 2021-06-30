@@ -32,9 +32,7 @@ void ListaPreferencia::Imprime(){
     //https://www.delftstack.com/pt/howto/cpp/how-to-iterate-over-map-in-cpp/
 }
 
-void ListaPreferencia::ImprimeProposta(TipoChave elemento){
-    //std::cout<<elemento<<"oi";
-    //g[elemento].Imprime();
+void ListaPreferencia::ImprimeProposta(TipoChave elemento){    
     g[elemento].ImprimeProposta();
 }
 

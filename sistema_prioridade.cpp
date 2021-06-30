@@ -78,24 +78,12 @@ void Sistema_Prioridade::Imprimir(){
 
     */
     
-    //std::cout<<"\n\tMatching Posto\n";
-    unsigned int n = 0;
-    for(auto &item : this->m_pessoa){
-        n++;
+    //std::cout<<"\n\tMatching Posto\n";    
+    for(auto &item : this->m_pessoa){        
         std::cout << item.first <<"\n";        
-        for(unsigned int i=0;i<item.second.size();i++){
-            if(i!=item.second.size()-1){
-                std::cout<<item.second[i]<<" ";
-            }else{
-                std::cout<<item.second[i];
-            }
-            
-        }
-        /*
-        if(n!=m_pessoa.size()){
-            std::cout<<"\n";
-        }
-        */
+        for(unsigned int i=0;i<item.second.size();i++){            
+            std::cout<<item.second[i]<<" ";                        
+        }    
        std::cout<<"\n";
         
     }
@@ -120,20 +108,14 @@ void Sistema_Prioridade::ConstruirPreferencias(){
     //ordeno as distancias, depois so adiciono na lista pref na ordem 
     for(auto &pes : this->pessoas){        
         std::vector<std::pair<int, float>> vet;
-        float aux;        
-        //std::cout<<"\n\tPessoa -"<<pes.first<<"\n";                  
+        float aux;                      
         for(auto &post : this->postos){            
-            aux = this->CalculaDistancia(pes.second,post.second);
-            //std::cout<<"Pessoa "<<pes.first<< " distancia ate o posto " <<post.first<<" : "<< aux <<std::endl;
+            aux = this->CalculaDistancia(pes.second,post.second);            
             vet.push_back(std::make_pair(post.first,aux));            
-        }
-        //std::cout<<"\nVETOR - "<<pes.first<<"\n";
+        }        
         vet = OrdenaInsercaoFloat(vet,n_postos);
-        for(int j=0;j<n_postos;j++){                                 
-            //std::cout << "helou1";   
-            a.AdicionaPreferencia(pes.first,vet[j].first);
-            //std::cout << vet[j].first <<" : "<<vet[j].second <<" ";            
-            //std::cout << "helou2";   
+        for(int j=0;j<n_postos;j++){                                             
+            a.AdicionaPreferencia(pes.first,vet[j].first);            
         }
         
     }
@@ -201,22 +183,13 @@ void Sistema_Prioridade::Matching(){
     int rank[this->n_pessoas];
     for(int i=0;i<this->n_pessoas;i++){        
         rank[b[i]]=i;
-    }
-
-    
-    std::cout<<"\n\tRANK POSTOS\n";
-    for(int j=0;j<n_pessoas;j++){
-        std::cout << rank[j] <<" ";
-    }
-    
+    }        
 
     //Preenchendo os match de pessoa com -1
     //o de posto nao precisa pois para testar se o posto tem vaga
-    //farei if(capacidade==tamanho) 
-    //std::cout<<"\n\tMATCHING PESSOAS\n";
+    //farei if(capacidade==tamanho)     
     for(int i=0;i<=this->n_pessoas;i++){
-        this->m_posto[i]=-1;        
-        //std::cout << i <<":"<<m_posto[i]<<" ";
+        this->m_posto[i]=-1;                
     }
     
     
@@ -240,24 +213,14 @@ void Sistema_Prioridade::Matching(){
    int aux_p2 = 0; //pessoa que perdeu o match
    int aux_posto=-1;   
    k = Teste();
-   while(k>=0){
-       std::cout << "LOOP k=" << k <<"\n";
-       aux_posto = a.PegaProxProposta(k);
-       std::cout << "posto que ela quer " << aux_posto;
-       if((int)m_pessoa[aux_posto].size()<postos[aux_posto].GetCapacidade()){           
-           //std::cout << " ta livre"<<"\n";
+   while(k>=0){       
+       aux_posto = a.PegaProxProposta(k);       
+       if((int)m_pessoa[aux_posto].size()<postos[aux_posto].GetCapacidade()){                      
            m_posto[k]=aux_posto;
-           m_pessoa[aux_posto].push_back(k);
-           std::cout << "Pessoa " << k <<" no Posto "<<m_posto[k]<<"\n";
-           std::cout << "Posto " << aux_posto <<" com a Pessoa ";
-           /*
-           for(unsigned int i=0;i<m_pessoa[aux_posto].size();i++){
-               std::cout<<m_pessoa[aux_posto][i];
-           }
-           */
-           //std::cout << "\n";
+           m_pessoa[aux_posto].push_back(k);           
+           
        }else if((TesteRank(k,m_pessoa[aux_posto],rank,&aux_p2_i,&aux_p2))!=0){
-           std::cout << " nao ta livre, ocupado por: "<<aux_p2<<" com indice "<<aux_p2_i<<"\n";
+           
            m_posto[aux_p2]=-1;
 
            m_posto[k]=aux_posto;          
@@ -269,21 +232,11 @@ void Sistema_Prioridade::Matching(){
                 this->visitei[aux_p2][j]=0;
             }
             a.ReiniciaProposta(aux_p2);
-
-           //std::cout << "Pessoa " << k <<" no Posto "<<m_posto[k]<<"\n";
-           //std::cout << "Posto " << aux_posto <<" com a Pessoa ";
-           /*
-           for(unsigned int i=0;i<m_pessoa[aux_posto].size();i++){
-               std::cout<<m_pessoa[aux_posto][i];
-           }
-           std::cout << "\n"; 
-           */          
+       
        }else{
 
-       }
-       //std::cout << "morre aqui\n";
-       visitei[k][aux_posto]=1;
-       //std::cout << "ou morre aqui\n";
+       }       
+       visitei[k][aux_posto]=1;       
         a.AndaProposta(k);
        
        k = Teste();       
@@ -319,29 +272,7 @@ int Sistema_Prioridade::Teste(){
     //os postos, faça:
     
    for(int i=0;i<=this->n_pessoas;i++){
-       if(m_posto[i]==-1){ //Teste sem par, pega pessoa sem par
-            /*
-            // teste de instabilidade
-            // Se houver alguem sem par que dentro do seus postos
-            // de preferencia, um posto que esta com alguem que prefere
-            // menos quem ele ta do que eu, entao zera a proposta e 
-            // faça a proposta.
-            for(int k=0;k<n_postos;k++){ 
-                int aux;
-                aux = a.PegaItemNaLista(i,k);
-                if((int)m_pessoa[aux].size()<postos[aux].GetCapacidade()){
-                    *aux_p=aux;
-                    return i;
-                }else{
-                    for(unsigned int j=0;j<m_pessoa[aux].size();j++){
-                        if(rank[i]<rank[m_pessoa[aux][j]]){
-                            *aux_p = aux;
-                            return i;
-                        }
-                    }
-                }                
-            }
-            */                        
+       if(m_posto[i]==-1){ //Teste sem par, pega pessoa sem par                                  
             for(unsigned int j=0;j<visitei[i].size();j++){
                 if(visitei[i][j]==0){ //Existe alguem nao visitado?
                     return i;
@@ -351,55 +282,13 @@ int Sistema_Prioridade::Teste(){
             
        }
    }
-   //depois de ter resolvido boa parte dos casamentos
-   //vou testar a estabilidade percorrendo os as pessoas   
-   //Uma pessoa p1 esta alocada para um posto β, mas ha um posto α mais proximo
-   //que possui vagas disponıveis ou esta alocando uma pessoa p2 de menor idade.
-
-
-
-
-    /*
-
-   for(int i=0;i<n_pessoas;i++){       
-       if(m_posto[i]!=-1){
-           int p_i = m_posto[i];
-           std::vector<int> l_pref = a.GetListaVector(i);
-           std::cout << "\nPessoa " << i << "Prefere os postos: ";
-           for(unsigned int j=0;j<l_pref.size();j++){
-               std::cout << l_pref[j] << " ";
-           }
-           std::cout <<"\n";
-       }
-   }
-   */
-    /*
-   for(int p_j=0;p_j<n_postos;p_j++){
-                if(p_i!=p_j){
-                    for(unsigned int j=0;j<m_pessoa[p_j].size();j++){
-                        if(m_pessoa[p_i][i]!=m_pessoa[p_j][j]){
-                            if(rank[m_pessoa[p_i][i]]<rank[m_pessoa[p_j][j]]){
-                                std::cout << "\nPessoa " << m_pessoa[p_j][i] <<" esta com o Posto "<<p_j<<" mas prefere o Posto "<<p_i<<"\n";
-                                //resetar as visistas e a proposta da pessoa l porque é um par instavel
-                                for(int l=0;l<this->n_postos;l++){
-                                    this->visitei[m_pessoa[p_j][j]][l]=0;
-                                }
-                                a.ReiniciaProposta(m_pessoa[p_j][j]);
-                                return m_pessoa[p_j][j];
-                            }
-                        }
-                    }
-                }
-            }
-            */
+   
     return -1;
 }
 
 int Sistema_Prioridade::TesteRank(int pessoa, std::vector<int> l_pessoa,int rank[],int *p_i, int *p2){
-    for(unsigned int i=0;i<l_pessoa.size();i++){
-        //std::cout << "\nOlhando Pessoa " << pessoa <<" em relação a "<<l_pessoa[i]<<"\n";
-        if(rank[pessoa]<rank[l_pessoa[i]]){ 
-            //std::cout << "entrei\n";           
+    for(unsigned int i=0;i<l_pessoa.size();i++){        
+        if(rank[pessoa]<rank[l_pessoa[i]]){                   
             *p2 = l_pessoa[i];
             *p_i = i;
             return 1;
@@ -408,39 +297,6 @@ int Sistema_Prioridade::TesteRank(int pessoa, std::vector<int> l_pessoa,int rank
     return 0;
 }
 
-/*
-int Sistema_Prioridade::Teste(int rank[], int *aux_p, int *caso,int *pessoa_perdeu,int *pessoa_perdeu_i){
-    for(int i=0;i<=this->n_pessoas;i++){
-            if(m_posto[i]==-1){ //Teste sem par, pega pessoa sem par
-                    // teste de instabilidade
-                    // Se houver alguem sem par que dentro do seus postos
-                    // de preferencia, um posto que esta com alguem que prefere
-                    // menos quem ele ta do que eu, entao zera a proposta e 
-                    // faça a proposta.
-                    for(int l=0;l<n_postos;l++){ 
-                        int aux;
-                        aux = a.PegaItemNaLista(i,l);
-                        if((int)m_pessoa[aux].size()<postos[aux].GetCapacidade()){
-                            *aux_p=aux;
-                            *caso = 1;
-                            return i;                                                        
-                        }else{
-                            for(unsigned int j=0;j<m_pessoa[aux].size();j++){
-                                if(rank[i]<rank[m_pessoa[aux][j]]){
-                                    *aux_p = aux;
-                                    *caso = 2;
-                                    *pessoa_perdeu = m_pessoa[aux][j];
-                                    *pessoa_perdeu_i = j;                                                                        
-                                    return i;
-                                }
-                            }
-                        }                
-                    }                                    
-            }
-        }
-    return -1;
 
-}
-*/
 
 

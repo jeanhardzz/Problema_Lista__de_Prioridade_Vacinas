@@ -19,8 +19,7 @@ void ListaEncadeada::AndaProposta(){
     prox_proposta = prox_proposta->prox;
 }
 
-void ListaEncadeada::ReiniciaProposta(){
-    //std::cout<<"\nto aqui dentro, proposta atual: "<<prox_proposta->prox->item.GetChave()<<" primeiro: "<<primeiro->prox->item.GetChave()<<"\n";
+void ListaEncadeada::ReiniciaProposta(){    
     prox_proposta = primeiro;
 }
 
