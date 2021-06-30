@@ -46,6 +46,10 @@ TipoChave ListaPreferencia::PegaProxProposta(TipoChave elemento){
     return g[elemento].GetProposta().GetChave();
 }
 
+void ListaPreferencia::ReiniciaProposta(TipoChave elemento){
+    g[elemento].ReiniciaProposta();
+}
+
 
 ListaPreferencia ListaPreferencia::Rank(){
     ListaPreferencia rank;
@@ -59,7 +63,14 @@ ListaPreferencia ListaPreferencia::Rank(){
 
 ListaEncadeada ListaPreferencia::GetLista(TipoChave key){
     return g[key];
+}
 
+std::vector<int> ListaPreferencia::GetListaVector(TipoChave key){
+    std::vector<int> r;
+    for(int i=1;i<=g[key].GetTamanho();i++){
+        r.push_back(g[key].GetItem(i).GetChave());
+    }
+    return r;
 }
 
 TipoChave ListaPreferencia::PegaItemNaLista(TipoChave key, TipoChave pos){

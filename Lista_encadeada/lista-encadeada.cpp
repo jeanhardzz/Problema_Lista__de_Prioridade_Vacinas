@@ -19,6 +19,11 @@ void ListaEncadeada::AndaProposta(){
     prox_proposta = prox_proposta->prox;
 }
 
+void ListaEncadeada::ReiniciaProposta(){
+    //std::cout<<"\nto aqui dentro, proposta atual: "<<prox_proposta->prox->item.GetChave()<<" primeiro: "<<primeiro->prox->item.GetChave()<<"\n";
+    prox_proposta = primeiro;
+}
+
 void ListaEncadeada::ImprimeProposta(){
     prox_proposta->prox->item.Imprime();
 }
@@ -95,6 +100,22 @@ void ListaEncadeada::InserePosicao(TipoItem item, int pos) {
     prox_proposta = primeiro;
 };
 
+void ListaEncadeada::InserePosicaoEApaga(int chave, int pos){
+    TipoItem item;
+    item.SetChave(chave);
+    TipoCelula *p, *nova;
+    p = Posiciona(pos,true); // posiciona na célula anterior
+    nova = new TipoCelula();
+    nova->item = item;
+    nova->prox = p->prox->prox;
+    p->prox = nova;
+
+    if(nova->prox == 0)
+        ultimo = nova;
+
+    delete p->prox;
+}
+
 TipoItem ListaEncadeada::RemoveInicio() {;
     TipoItem aux;
     TipoCelula *p;
@@ -165,6 +186,22 @@ TipoItem ListaEncadeada::Pesquisa(TipoChave c) {
         p = p->prox;
     }
     return aux;
+}
+
+int ListaEncadeada::Existe(TipoChave c) {    
+    TipoCelula *p;    
+
+    if (tamanho == 0)
+        return 0;
+        
+    p = primeiro->prox;    
+    while (p!=0) {
+        if (p->item.GetChave() == c) {            
+            return 1;
+        }
+        p = p->prox;
+    }
+    return 0;
 }
 
 int ListaEncadeada::PesquisaPos(TipoChave c) {

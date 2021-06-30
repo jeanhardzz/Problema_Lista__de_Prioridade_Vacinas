@@ -14,6 +14,7 @@ class ListaEncadeada : public Lista {
         void InsereInicio(TipoItem item);
         void InsereFinal(TipoItem item);
         void InserePosicao(TipoItem item, int pos);
+        void InserePosicaoEApaga(int chave, int pos);
         TipoItem RemoveInicio();
         TipoItem RemoveFinal();
         TipoItem RemovePosicao(int pos);
@@ -22,9 +23,12 @@ class ListaEncadeada : public Lista {
         void Limpa();
         void Inverte();            
         void AndaProposta();
+        void ReiniciaProposta();
         TipoItem GetProposta();
         void ImprimeProposta();
         int PesquisaPos(TipoChave c);
+        int Existe(TipoChave c);
+        
     private:
         TipoCelula* primeiro;
         TipoCelula* ultimo;
