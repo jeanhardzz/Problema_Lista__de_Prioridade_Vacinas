@@ -15,7 +15,7 @@
 CC=g++ # compilador, troque para gcc se preferir utilizar C
 TARGET= Lista_encadeada/tipocelula.cpp Lista_encadeada/lista-encadeada.cpp tipoitem.cpp lista_preferencia.cpp pessoa.cpp posto.cpp sistema_prioridade.cpp main.cpp
 CFLAGS=-Wall -Wextra # compiler flags, troque o que quiser, exceto bibliotecas externas
-EXEC=./main # nome do executavel que sera gerado, nao troque
+EXEC=./tp01 # nome do executavel que sera gerado, nao troque
 TMPOUT=main.testresult
 
 # detect if running under unix by finding 'rm' in $PATH :
